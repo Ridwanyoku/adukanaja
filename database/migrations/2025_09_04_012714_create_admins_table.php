@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('nik')->primary();
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
             $table->string('username')->unique();
-            $table->string('telephone');
             $table->string('password');
-            $table->rememberToken();
+            $table->string('telephone');
+            $table->enum('level', ['staff', 'admin'])->default('staff');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('admins');
     }
 };

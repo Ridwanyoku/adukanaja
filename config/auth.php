@@ -2,6 +2,47 @@
 
 return [
 
+    'defaults' => [
+        'guard' => env('AUTH_GUARD', 'user'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'user'),
+    ],
+    'guards' => [
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'user',
+        ],
+        'admins' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+    ],
+    'providers' => [
+        'user' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+    ],
+    'passwords' => [
+        'user' => [
+            'provider' => 'user',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+    ],
+    'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
+];
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -13,10 +54,10 @@ return [
     |
     */
 
-    'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
-    ],
+    // 'defaults' => [
+    //     'guard' => env('AUTH_GUARD', 'users'),
+    //     'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -35,12 +76,16 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-    ],
+    // 'guards' => [
+    //     'users' => [
+    //         'driver' => 'session',
+    //         'provider' => 'users',
+    //     ],
+    //     'admins' => [
+    //         'driver' => 'session',
+    //         'provider' => 'admins',
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,17 +104,21 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+    // 'providers' => [
+    //     'users' => [
+    //         'driver' => 'eloquent',
+    //         'model' => App\Models\User::class,
+    //     ],
+    //     'admins' => [
+    //         'driver' => 'eloquent',
+    //         'model' => App\Models\Admin::class,
+    //     ],
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -90,14 +139,20 @@ return [
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+    // 'passwords' => [
+    //     'users' => [
+    //         'provider' => 'users',
+    //         'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+    //         'expire' => 60,
+    //         'throttle' => 60,
+    //     ],
+    //     'admins' => [
+    //         'provider' => 'admins',
+    //         'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+    //         'expire' => 60,
+    //         'throttle' => 60,
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -110,6 +165,6 @@ return [
     |
     */
 
-    'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
+//     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
-];
+// ];
