@@ -19,7 +19,7 @@ Route::get('/debug-guards', function () {
 // Routes untuk user (login dengan NIK)
 Route::middleware('auth:user')->group(function () {
     Route::get('/user/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
-    Route::get('/user/reports/create', [UserController::class, 'create'])->name('reports.create');
+    Route::get('/user/report/create', [UserController::class, 'create'])->name('reports.create');
     Route::post('/user/reports', [UserController::class, 'store'])->name('reports.store');
     Route::get('/reports/{id}', [UserController::class, 'show'])->name('reports.show');
     Route::get('/user/reports/{id}/edit', [UserController::class, 'edit'])->name('reports.edit');

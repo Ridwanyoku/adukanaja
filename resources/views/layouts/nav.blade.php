@@ -4,9 +4,7 @@
         <ul class="flex space-x-4">
             @auth('user')
                 <li><a href="{{ route('user.dashboard') }}" class="{{ request()->routeIs('user.dashboard') ? 'underline' : '' }}">Dashboard</a></li>
-                <li><a href="/user/report" class="{{ request()->routeIs('user.report') ? 'underline' : '' }}">Report</a></li>
-                <li><a href="/user/response" class="{{ request()->routeIs('user.response') ? 'underline' : '' }}">Response</a></li>
-                <li><a href="/user/show" class  ="{{ request()->routeIs('user.show') ? 'underline' : '' }}">Show</a></li>
+                <li><a href="/user/report/create" class="{{ request()->routeIs('user.reports') ? 'underline' : '' }}">Report</a></li>
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-red-300">Logout</a></li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
             @endauth

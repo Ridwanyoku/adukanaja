@@ -13,7 +13,7 @@
         @if ($report)
             <div class="bg-white p-4 rounded shadow">
                 <p><strong>Content:</strong> {{ $report->content }}</p>
-                <p><strong>User:</strong> {{ $report->user->nama }}</p>
+                <p><strong>User:</strong> {{ $report->user->name }}</p>
                 <p><strong>Status:</strong> {{ $report->status === '0' ? 'Pending' : ucfirst($report->status) }}</p>
                 <p><strong>Date:</strong> {{ $report->date }}</p>
                 @if ($report->image)
