@@ -43,7 +43,7 @@
                                         @foreach($report->responses as $response)
                                             <li>
                                                 <div class="text-sm text-gray-700">{{ $response->response_content }}</div>
-                                                <div class="text-xs text-gray-500">By: {{ $response->admin->nama ?? 'Unknown' }} | {{ $response->date }}</div>
+                                                <div class="text-xs text-gray-500">By: {{ $response->admin->name ?? 'Unknown' }} | {{ $response->date }}</div>
                                             </li>
                                         @endforeach
                                     </ul>

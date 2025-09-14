@@ -3,26 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Response</title>
+    <title>Responses</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     @include('layouts.nav')
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-4">Add Response</h1>
-        <form method="POST" action="{{ route('admin.reports.responses.store', $report) }}" class="space-y-4">
-            @csrf
-            <div>
-                <label for="response_content" class="block text-sm font-medium text-gray-700">Response</label>
-                <textarea id="response_content" name="response_content" rows="5" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm @error('response_content') border-red-500 @enderror" required>{{ old('response_content') }}</textarea>
-                @error('response_content')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
+        <h1 class="text-3xl font-bold mb-4">All Reports for Response</h1>
+        @if (session('success'))
+            <div class="bg-green-100 text-green-800 p-3 rounded mb-4">{{ session('success') }}</div>
+        @endif
+        @if ($reports->isEmpty())
+            <p class="text-gray-600">No reports found.</p>
+        @else
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-2 border">Content</th>
+                            <th class="p-2 border">User</th>
+                            <th class="p-2 border">Status</th>
+                            <th class="p-2 border">Date</th>
+                            <th class="p-2 border">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($reports as $report)
+                            <tr class="hover:bg-gray-100">
+                                <td class="p-2 border">{{ Str::limit($report->content, 50) }}</td>
+                                <td class="p-2 border">{{ $report->user ? $report->user->name : 'Anonymous' }}</td>
+                                <td class="p-2 border">{{ $report->status === '0' ? 'Pending' : ucfirst($report->status) }}</td>
+                                <td class="p-2 border">{{ $report->date }}</td>
+                                <td class="p-2 border">
+                                    <a href="{{ route('staff.show', $report) }}" class="text-blue-500 hover:underline">View & Respond</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            <input type="hidden" name="admin_id" value="{{ Auth::guard('admins')->user()->id }}">
-            <input type="hidden" name="username" value="{{ Auth::guard('admins')->user()->username }}">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit Response</button>
-        </form>
+        @endif
+        <a href="{{ route('staff.dashboard') }}" class="mt-4 inline-block bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Back to Dashboard</a>
     </div>
 </body>
 </html>

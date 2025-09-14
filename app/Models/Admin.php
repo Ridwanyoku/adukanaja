@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable {
     use Notifiable;
-    protected $fillable = ['nama', 'username', 'password', 'telephone', 'level'];
+    protected $fillable = ['name', 'username', 'password', 'telephone', 'level'];
     protected $hidden = ['password', 'remember_token'];
 
     public function isAdmin() { return $this->level === 'admin'; }

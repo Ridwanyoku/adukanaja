@@ -36,10 +36,19 @@ Route::prefix('admin')->group(function () {
 
 Route::middleware(['auth:admins', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/add-staff', [AdminController::class, 'showAddStaffForm'])->name('admin.add-staff-form');
+    Route::post('/admin/add-staff', [AdminController::class, 'addStaff'])->name('admin.add-staff');
 });
 
-Route::middleware(['auth:admins', 'role:staff'])->group(function () {
+Route::middleware(['auth:admins'])->group(function () {
     Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+    Route::get('/staff/response', [StaffController::class, 'responseIndex'])->name('staff.response');
+    Route::get('/staff/response/{report}', [StaffController::class, 'responseShow'])->name('staff.show');
+    Route::post('/staff/response/{report}', [StaffController::class, 'responseStore'])->name('staff.response.store');
+    Route::get('/staff/response/edit/{response}', [StaffController::class, 'responseEdit'])->name('staff.response.edit');
+    Route::put('/staff/response/{response}', [StaffController::class, 'responseUpdate'])->name('staff.response.update');
+    Route::delete('/staff/response/{response}', [StaffController::class, 'responseDestroy'])->name('staff.response.destroy');
+    Route::post('/staff/response/{report}/update-status', [StaffController::class, 'updateStatus'])->name('staff.response.update-status');
 });
 
 require __DIR__.'/auth.php';

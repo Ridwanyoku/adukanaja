@@ -15,6 +15,14 @@ class DatabaseSeeder extends Seeder {
             'password' => Hash::make('12345678'),
             'telephone' => '08123456789',
         ]);
+        
+        User::create([
+            'nik' => '111111111',
+            'name' => 'User Test 2',
+            'username' => 'user2',
+            'password' => Hash::make('111111111'),
+            'telephone' => '08123456789',
+        ]);
 
         Admin::create([
             'name' => 'Admin',

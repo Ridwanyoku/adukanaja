@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller {
     public function showLoginForm() {
@@ -59,5 +60,28 @@ class AdminController extends Controller {
             return redirect('/admin/login')->withErrors(['access' => 'Unauthorized access to admin dashboard.']);
         }
         return view('admin.dashboard', ['user' => $user]);
+    }
+
+    public function showAddStaffForm() {
+        return view('admin.add-staff');
+    }
+
+    public function addStaff(Request $request) {
+    $request->validate([
+        'name' => 'required|string',
+        'username' => 'required|string|unique:admins',
+        'password' => 'required|string|min:6',
+        'telephone' => 'required|string',
+    ]);
+
+    Admin::create([
+        'name' => $request->name,
+        'username' => $request->username,
+        'password' => Hash::make($request->password),
+        'telephone' => $request->telephone,
+        'level' => 'staff',
+    ]);
+
+    return redirect()->back()->with('success', 'Staff berhasil ditambahkan!');
     }
 }
