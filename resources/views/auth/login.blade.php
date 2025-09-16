@@ -7,15 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex h-screen bg-white-100">
-    <div class="w-full max-w-xs m-auto bg-red-50 rounded p-5">
+    <div class="w-full max-w-xs m-auto bg-gray-500 rounded p-5">
         <header>
             <img class="w-200 mx-auto mb-5" src="{{ asset('images/logo.png') }}" alt="Logo">
         </header>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div>
-                <label class="block mb-2 text-red-500" for="nik">NIK</label>
-                <input class="w-full p-2 mb-6 text-red-700 border-b-2 border-red-500 outline-none focus:bg-gray-300 @error('nik') border-red-500 @enderror" 
+                <label class="block mb-2 text-gray-100" for="nik">NIK</label>
+                <input class="w-full p-2 mb-6 text-gray-800 border-b-2 border-gray-500 outline-none focus:bg-gray-300 @error('nik') border-gray-500 @enderror" 
                        type="text" 
                        name="nik" 
                        value="{{ old('nik') }}" 
@@ -26,8 +26,8 @@
                 @enderror
             </div>
             <div>
-                <label class="block mb-2 text-red-500" for="password">Password</label>
-                <input class="w-full p-2 mb-6 text-red-700 border-b-2 border-red-500 outline-none focus:bg-gray-300 @error('password') border-red-500 @enderror" 
+                <label class="block mb-2 text-gray-100" for="password">Password</label>
+                <input class="w-full p-2 mb-6 text-gray-800 border-b-2 border-gray-500 outline-none focus:bg-gray-300 @error('password') border-gray-500 @enderror" 
                        type="password" 
                        name="password" 
                        required>

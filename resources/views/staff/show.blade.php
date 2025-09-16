@@ -22,15 +22,15 @@
             <p><strong>Date:</strong> {{ $report->date }}</p>
             @if ($report->image)
                 <p><strong>Image:</strong></p>
-                <img src="{{ asset('storage/' . $report->image) }}" alt="Report Image" class="mt-2 max-w-xs md:max-w-md lg:max-w-lg rounded">
+                <img src="{{ asset('storage/' . $report->image) }}" height="200" width="200" alt="Report Image" class="mt-2 max-w-xs md:max-w-md lg:max-w-lg rounded">
             @endif
             <h6 class="text-lg font-semibold mt-4">Responses:</h6>
             @if ($report->responses->isEmpty())
                 <p class="text-gray-600">No responses yet.</p>
             @else
-                <ul class="list-disc pl-5 mt-2 space-y-2">
+                <ul class="list-disc pl-0 mt-2 space-y-2">
                     @foreach ($report->responses as $response)
-                        <li class="bg-gray-50 p-2 rounded">
+                        <ul class="bg-gray-50 p-2 rounded">
                             <strong>{{ $response->admin->nama }} ({{ $response->admin->isAdmin() ? 'Admin' : 'Staff' }})</strong> - {{ $response->date }}
                             <p class="mt-1">{{ $response->response_content }}</p>
                             <button @click="openModal = true; editingResponseId = '{{ $response->id }}'; editingResponseContent = '{{ addslashes($response->response_content) }}'" class="text-yellow-500 hover:underline">Edit</button>
@@ -39,7 +39,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:underline" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
-                        </li>
+                        </ul>
                     @endforeach
                 </ul>
             @endif
@@ -82,24 +82,24 @@
 
     <!-- Pop Up Edit Modal -->
     <div x-show="openModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-            <h3 class="text-xl font-bold mb-4">Edit Response</h3>
-            {{-- <form method="POST" x-bind:action="'{{ route('staff.response.update', '') }}/' + editingResponseId"> --}}
-                @csrf
-                @method('PUT')
-                <div class="mb-3">
-                    <label for="response_content" class="block text-sm font-medium text-gray-700">Response Content</label>
-                    <textarea x-model="editingResponseContent" id="response_content" name="response_content" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required></textarea>
-                    @error('response_content')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="flex space-x-2">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Update</button>
-                    <button @click="openModal = false" type="button" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
-                </div>
-            </form>
-        </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+        <h3 class="text-xl font-bold mb-4">Edit Response</h3>
+        <form method="POST" x-bind:action="'{{ route('staff.response.update', ['response' => '__RESPONSE_ID__']) }}'.replace('__RESPONSE_ID__', editingResponseId)">
+            @csrf
+            @method('PUT')
+            <div class="mb-3">
+                <label for="response_content" class="block text-sm font-medium text-gray-700">Response Content</label>
+                <textarea x-model="editingResponseContent" id="response_content" name="response_content" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required></textarea>
+                @error('response_content')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="flex space-x-2">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Update</button>
+                <button @click="openModal = false" type="button" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 </html>

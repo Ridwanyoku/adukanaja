@@ -1,6 +1,7 @@
-<nav class="bg-gray-900 text-white p-4">
+<nav class="sticky top-0 bg-gray-900 text-white p-4">
     <div class="container mx-auto flex justify-between items-center">
-        <div class="text-xl font-bold">AdukanAja</div>
+        {{-- <div class="text-xl font-bold">AdukanAja</div> --}}
+        <img src="{{asset('images/logo.png')}}" height="120" width="120" alt="logo">
         <ul class="flex space-x-4">
             @auth('user')
                 <li><a href="{{ route('user.dashboard') }}" class="{{ request()->routeIs('user.dashboard') ? 'underline' : '' }}">Dashboard</a></li>

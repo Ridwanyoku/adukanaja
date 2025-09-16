@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller {
@@ -59,7 +60,8 @@ class AdminController extends Controller {
         if (!$user instanceof Admin || !$user->isAdmin()) {
             return redirect('/admin/login')->withErrors(['access' => 'Unauthorized access to admin dashboard.']);
         }
-        return view('admin.dashboard', ['user' => $user]);
+        $staffs = Admin::where('level', 'staff')->get();
+        return view('admin.dashboard', ['user' => $user]); compact('staffs');
     }
 
     public function showAddStaffForm() {
@@ -83,5 +85,11 @@ class AdminController extends Controller {
     ]);
 
     return redirect()->back()->with('success', 'Staff berhasil ditambahkan!');
+    }
+
+    public function staffIndex(){
+        $staffs = Admin::where('level', 'staff')->get();
+        $users = User::all();
+        return view('admin.dashboard', compact('staffs', 'users'));
     }
 }

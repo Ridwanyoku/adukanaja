@@ -18,7 +18,7 @@
                 <p><strong>Date:</strong> {{ $report->date }}</p>
                 @if ($report->image)
                     <p><strong>Image:</strong></p>
-                    <img src="{{ asset('storage/' . $report->image) }}" alt="Report Image" class="mt-2 max-w-xs md:max-w-md rounded">
+                    <img src="{{ asset('storage/' . $report->image) }}" height="200" width="200" alt="Report Image" class="mt-2 max-w-xs md:max-w-md rounded">
                 @endif
                 <h2 class="text-xl font-semibold mt-4">Responses</h2>
                 @if ($report->responses->isEmpty())
@@ -27,7 +27,7 @@
                     <ul class="mt-2 space-y-2">
                         @foreach ($report->responses as $response)
                             <li class="bg-gray-50 p-2 rounded">
-                                <p><strong>Admin:</strong> {{ $response->admin->nama }}</p>
+                                <p><strong>Admin:</strong> {{ $response->admin->name }}</p>
                                 <p><strong>Response:</strong> {{ $response->response_content }}</p>
                                 <p><strong>Date:</strong> {{ $response->date }}</p>
                             </li>

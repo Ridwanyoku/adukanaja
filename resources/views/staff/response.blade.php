@@ -9,7 +9,7 @@
 <body>
     @include('layouts.nav')
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-4">All Reports for Response</h1>
+        <h1 class="text-3xl font-bold mb-4">All Reports from User</h1>
         @if (session('success'))
             <div class="bg-green-100 text-green-800 p-3 rounded mb-4">{{ session('success') }}</div>
         @endif

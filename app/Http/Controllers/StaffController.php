@@ -10,7 +10,8 @@ class StaffController extends Controller {
     public function dashboard() {
         $totalReports = Report::count();
         $totalResponses = Response::count();
-        return view('staff.dashboard', compact('totalReports', 'totalResponses'));
+        $responses = Response::where('admin_id', Auth::guard('admins')->id())->with('admin', 'report')->latest()->get();
+        return view('staff.dashboard', compact('totalReports', 'totalResponses', 'responses'));
     }
 
     public function responseIndex() {
@@ -31,7 +32,7 @@ class StaffController extends Controller {
         Response::create([
             'report_id' => $report->id,
             'admin_id' => Auth::guard('admins')->id(),
-            'date' => now()->format('Y-m-d'),
+            'date' => now(),
             'response_content' => $request->response_content,
         ]);
 

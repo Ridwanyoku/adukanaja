@@ -35,9 +35,12 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::middleware(['auth:admins', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'staffIndex'])->name('admin.dashboard');
+    // Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/add-staff', [AdminController::class, 'showAddStaffForm'])->name('admin.add-staff-form');
     Route::post('/admin/add-staff', [AdminController::class, 'addStaff'])->name('admin.add-staff');
+    // Route::resource('admin/dashboard', AdminController::class);
+    // Route::resource('admin/dashboard', AdminController::class);
 });
 
 Route::middleware(['auth:admins'])->group(function () {
